@@ -20,5 +20,5 @@ $stmt->execute();
 $animals = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 foreach ($animals as $animal) {
-  echo $animal['type'] .  'の' . $animal['classifcation'] . '<br>' . $animal['description'] . '<br>' . $animal['birthday'] . '生まれ' . '<br>' . '出身地' . $animal['birthplace'] . '<hr>';
+  echo $animal['type'] .  'の' . $animal['classifcation'] . 'ちゃん' .'<br>' . $animal['description'] . '<br>' . $animal['birthday'] . ' 生まれ' . '<br>' . '出身地 ' . $animal['birthplace'] . '<hr>';
 }
