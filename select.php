@@ -11,29 +11,14 @@ try {
   exit;
 }
 
-$sql = 'SHOW TABLES';
-$stmt = $dbh->query($sql);
-while ($result = $stmt->fetch(PDO::FETCH_NUM)) {
-  $table_names[] = $result[0];
-}
+$sql = "select * from animals";
 
-$table_data = array();
-foreach ($table_names as $key => $val) {
-  $sql2 = "SELECT * FROM $val;";
-  $stmt2 = $dbh->query($sql2);
-  $table_data[$val] = array();
-  while ($result2 = $stmt2->fetch(PDO::FETCH_ASSOC)) {
-    foreach ($result2 as $key2 => $val2) {
-      $table_data[$val][$key2] = $val2;
-    }
-  }
-}
+$stmt = $dbh->prepare($sql);
 
-foreach ($table_data as $key => $val) {
-  if (empty($val)) {
-    continue;
-  }
-  foreach ($table_data[$key] as $key2 => $val2) {
-    echo $val2;
-  }
+$stmt->execute();
+
+$animals = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+foreach ($animals as $animal) {
+  echo $animal['type'] .  'の' . $animal['classifcation'] . 'ちゃん' .'<br>' . $animal['description'] . '<br>' . $animal['birthday'] . ' 生まれ' . '<br>' . '出身地 ' . $animal['birthplace'] . '<hr>';
 }
