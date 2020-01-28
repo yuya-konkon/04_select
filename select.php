@@ -14,11 +14,9 @@ try {
 $sql = "select * from animals";
 
 $stmt = $dbh->prepare($sql);
-
 $stmt->execute();
 
 $animals = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 
 if (isset($_GET['search'])) {
   $search = htmlspecialchars($_GET['search']);
