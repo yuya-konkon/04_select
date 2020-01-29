@@ -18,16 +18,6 @@ $stmt->execute();
 
 $animals = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-if (isset($_GET['search'])) {
-  $search = htmlspecialchars($_GET['search']);
-  $search_value = $search;
-} else {
-  $search = '';
-  $search_value = '';
-}
-
-$sql = "SELECT * FROM animals where description LIKE '%$search%'";
-
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +33,7 @@ $sql = "SELECT * FROM animals where description LIKE '%$search%'";
 <body>
   <h2>本日のご紹介ペット！</h2>
   <p>
-    <form action="" method="get">
+    <form action="" method="post">
       キーワード:
       <input type="text" name="description" id="">
       <input type="submit" value="検索">
@@ -51,7 +41,6 @@ $sql = "SELECT * FROM animals where description LIKE '%$search%'";
   </p>
 
   <?php foreach ($animals as $animal) {
-
     echo $animal['type'] . 'の' . $animal['classifcation'] . 'ちゃん' .'<br>' . $animal['description'] . '<br>' . $animal['birthday'] . ' 生まれ' . '<br>' . '出身地 ' . $animal['birthplace'] . '
     <hr>';
     } ?>
