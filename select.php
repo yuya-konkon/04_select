@@ -11,7 +11,7 @@
 <body>
   <h2>本日のご紹介ペット！</h2>
   <p>
-    <form action="" method="post">
+    <form action="" method="get">
       キーワード:
       <input type="text" name="description" id="">
       <input type="submit" value="検索">
@@ -35,15 +35,21 @@ try {
 }
 
 $sql = "select * from animals";
-
 $stmt = $dbh->prepare($sql);
 $stmt->execute();
-
 $animals = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+$keyword = $_GET["description"];
+$search = "select * from animals where description like '%' . $keyword . '%'";
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-  $description = $_GET[''];
-} elseif ($title == '') {
+  $_GET[$search];
+  foreach ($animals as $animal) {
+    echo $animal['type'] . 'の' . $animal['classifcation'] . 'ちゃん' . '<br>' . $animal['description'] . '<br>' . $animal['birthday'] . ' 生まれ' . '<br>' . '出身地 ' . $animal['birthplace'] . '
+    <hr>';
+  }
+}
+elseif ($keyword == '') {
   foreach ($animals as $animal) {
     echo $animal['type'] . 'の' . $animal['classifcation'] . 'ちゃん' . '<br>' . $animal['description'] . '<br>' . $animal['birthday'] . ' 生まれ' . '<br>' . '出身地 ' . $animal['birthplace'] . '
     <hr>';
