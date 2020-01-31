@@ -13,13 +13,12 @@
   <p>
     <form action="" method="get">
       キーワード:
-      <input type="text" name="description" id="">
+      <input type="text" name="description" placeholder="キーワードの検索">
       <input type="submit" value="検索">
     </form>
   </p>
 
 </body>
-
 </html>
 <?php
 
@@ -34,22 +33,17 @@ try {
   exit;
 }
 
-$sql = "select * from animals";
+$sql = "SELECT * FROM animals WHERE discription LIKE :'%' . $keyword . '%'";
 $stmt = $dbh->prepare($sql);
 $stmt->execute();
 $animals = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$keyword = $_GET["description"];
-$search = "select * from animals where description like '%' . $keyword . '%'";
+$keyword = $_GET["discription"];
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-  $_GET[$search];
-  foreach ($animals as $animal) {
-    echo $animal['type'] . 'の' . $animal['classifcation'] . 'ちゃん' . '<br>' . $animal['description'] . '<br>' . $animal['birthday'] . ' 生まれ' . '<br>' . '出身地 ' . $animal['birthplace'] . '
-    <hr>';
-  }
-}
-elseif ($keyword == '') {
+
+if (isset($_SERVER['REQUEST_METHOD']) === 'GET') {
+  echo $sql2;
+} else {
   foreach ($animals as $animal) {
     echo $animal['type'] . 'の' . $animal['classifcation'] . 'ちゃん' . '<br>' . $animal['description'] . '<br>' . $animal['birthday'] . ' 生まれ' . '<br>' . '出身地 ' . $animal['birthplace'] . '
     <hr>';
