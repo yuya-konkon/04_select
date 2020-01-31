@@ -33,13 +33,13 @@ try {
   exit;
 }
 
-$sql = "SELECT * FROM animals WHERE discription LIKE :'%' . $keyword . '%'";
+$sql = "select * from animals";
 $stmt = $dbh->prepare($sql);
 $stmt->execute();
 $animals = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $keyword = $_GET["discription"];
-
+$keyword = "SELECT * FROM animals WHERE discription LIKE :'%' . $keyword . '%'";
 
 if (isset($_SERVER['REQUEST_METHOD']) === 'GET') {
   echo $sql2;
