@@ -13,23 +13,17 @@ try {
   exit;
 }
 
-// もしREQUEST_METHODがGETだったら
-if (($_SERVER['REQUEST_METHOD']) === 'GET') {
-  // キーワードを変数に代入
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   $keyword = $_GET['keyword'];
-  // もし変数(キーワード)が空の場合
-  if ($keyword == '') {
-    // animalsテーブルから全件データを取得し変数(配列)に代入
-    $sql = "select * from animals";
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute();
-    $animals = $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
-} else {
-  // キーワードが空以外の場合
-  // animalsテーブルからキーワードを含んだデータのみをlikeで取得し変数(配列)に代入
-  $keyword = $_GET['keyword'];
-  $sql = "select * from animals where description like '%' . $keyword . '%' ";
+
+if ($keyword == '') {
+  $sql = "select * from animals";
+  $stmt = $dbh->prepare($sql);
+  $stmt->execute();
+  $animals = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  } else {
+  $sql = "select * from animals where description like '%$keyword%' ";
   $stmt = $dbh->prepare($sql);
   $stmt->execute();
   $animals = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -47,7 +41,7 @@ if (($_SERVER['REQUEST_METHOD']) === 'GET') {
 <body>
   <h2>本日のご紹介ペット！</h2>
   <p>
-    <form action="" method="get">
+    <form action="" method="GET">
       <label for="keyword">キーワード:
         <input type="text" name="keyword" placeholder="キーワードの入力">
       </label>
