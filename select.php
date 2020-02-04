@@ -15,7 +15,7 @@ try {
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   $keyword = $_GET['keyword'];
-  if ($keyword == '') {
+    if ($keyword == '') {
     $sql = "select * from animals";
     $stmt = $dbh->prepare($sql);
   } else {
